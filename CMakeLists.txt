@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(edit_distance)
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(Boost 1.54 COMPONENTS unit_test_framework system REQUIRED)
 

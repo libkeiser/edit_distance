@@ -116,6 +116,15 @@ template <typename T> inline T& nonconst_default() {
     return r;
 }
 
+template <typename T> std::enable_if_t<std::is_signed<T>::value, T> abs_helper(T val)
+{
+  return std::abs(val);
+}
+template <typename T> std::enable_if_t<!std::is_signed<T>::value, T> abs_helper(T val)
+{
+  return val;
+}
+
 template <typename Range1, typename Range2, typename Tag> struct range_category : public
     and_<is_same<typename std::iterator_traits<typename boost::range_iterator<Range1>::type>::iterator_category, Tag>,
          is_same<typename std::iterator_traits<typename boost::range_iterator<Range2>::type>::iterator_category, Tag> > {};
@@ -145,7 +154,7 @@ struct max_cost_checker<MaxCost, CostT, Node, typename enable_if<is_arithmetic<M
     diff_type mctec;
     Node* mcnode;
 
-    max_cost_checker(const MaxCost& max_cost_, const pos1_type& pos1_, const pos2_type& pos2_) : max_cost(CostT(std::abs(max_cost_))), beg1(pos1_), beg2(pos2_), mcmin(-1), mctec(-1), mcnode(NULL) {}
+    max_cost_checker(const MaxCost& max_cost_, const pos1_type& pos1_, const pos2_type& pos2_) : max_cost(CostT(abs_helper(max_cost_))), beg1(pos1_), beg2(pos2_), mcmin(-1), mctec(-1), mcnode(NULL) {}
     inline bool operator()(const CostT& c) const { return c > max_cost; }
     inline void update(Node* node) {
         // primary criteria:  position that consumes most sequence elements
@@ -190,7 +199,7 @@ struct max_cost_checker_myers<MaxCost, CostT, Pos, typename enable_if<is_arithme
     Pos mck;
     remainder::kind kind;
 
-    max_cost_checker_myers(const MaxCost& max_cost_) : max_cost(CostT(std::abs(max_cost_))), mcmin(-1), mctec(-1), mck(0), kind(remainder::none) {}
+    max_cost_checker_myers(const MaxCost& max_cost_) : max_cost(CostT(abs_helper(max_cost_))), mcmin(-1), mctec(-1), mck(0), kind(remainder::none) {}
     inline bool operator()(const CostT& c) const { return c > max_cost; }
     template <typename Itr>
     inline void update(const Pos& k, const Itr& Vf, const Itr& Vr, const Pos& delta, const Pos& L1, const Pos& L2, const Pos& D) {
