@@ -16,6 +16,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 
 // get the edit_alignment() function
+#include <iostream>
 #include <boost/algorithm/sequence/edit_distance.hpp>
 using boost::algorithm::sequence::edit_distance;
 using boost::algorithm::sequence::unit_cost;

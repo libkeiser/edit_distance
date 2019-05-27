@@ -12,6 +12,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 #include "edit_distance_common.hpp"
 
+#include <iostream>
 #include <boost/algorithm/sequence/edit_distance.hpp>
 using namespace boost::algorithm::sequence::parameter;
 using boost::algorithm::sequence::edit_distance;

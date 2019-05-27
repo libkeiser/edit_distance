@@ -12,6 +12,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 #include "edit_distance_common.hpp"
 
+#include <iostream>
 // get the edit_alignment() function
 #include <boost/algorithm/sequence/edit_distance.hpp>
 using boost::algorithm::sequence::edit_distance;
